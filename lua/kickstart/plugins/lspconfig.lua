@@ -1,3 +1,4 @@
+-- local texlab = require 'lspconfig.configs.texlab'
 -- LSP Plugins
 return {
   {
@@ -235,6 +236,9 @@ return {
             },
           },
         },
+
+        -- Personal
+        texlab = {},
       }
 
       -- Ensure the servers and tools above are installed
