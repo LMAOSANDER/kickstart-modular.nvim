@@ -7,7 +7,7 @@
 vim.o.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.o.relativenumber = true
+vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
@@ -76,4 +76,16 @@ vim.o.expandtab = true -- Use spaces instead of tabs
 vim.o.shiftwidth = 4 -- Number of spaces for indentation
 vim.o.tabstop = 4 -- Number of spaces per tab
 vim.o.softtabstop = 4 -- How many spaces a <Tab> counts for while editing
+
+vim.g.UltiSnipsExpandTrigger = '<tab>'
+vim.g.UltiSnipsJumpForwardTrigger = '<tab>'
+vim.g.UltiSnipsJumpBackwardTrigger = '<s-tab>'
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'tex',
+  callback = function()
+    vim.opt_local.conceallevel = 2 -- 0: off, 1: hide text, 2: hide + pretty symbols
+    vim.opt_local.concealcursor = '' -- 'nc' -- conceal in normal and command modes
+  end,
+})
 -- vim: ts=2 sts=2 sw=2 et
