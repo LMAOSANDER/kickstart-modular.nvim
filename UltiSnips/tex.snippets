@@ -5,15 +5,9 @@ endglobal
 
 
 snippet sign "Signature"
-Yours sincerely,
-
-Alexander ranefjärd
+Alexander ranefjärd.
 endsnippet
 
-
-snippet ff "The LaTeX \frac{}{} command"
-\frac{$1}{$2}$0
-endsnippet
 
 snippet beg "begin{} / end{}" bA
 \begin{$1}
@@ -71,8 +65,28 @@ snippet "(\\?\w+)(,\.|\.,)" "Vector postfix" riA
 endsnippet 
 
 context "math()"
+snippet aa "alpha" iA
+\alpha
+endsnippet
+
+context "math()"
+snippet bb "beta" iA
+\beta
+endsnippet
+
+context "math()"
+snippet gg "gamma" iA
+\gamma
+endsnippet
+
+context "math()"
 snippet ww "omega" iA
 \omega
+endsnippet
+
+context "math()"
+snippet ll "ell" iA
+\ell
 endsnippet
 
 priority 100
@@ -132,7 +146,7 @@ snippet fal "for all" iA
 endsnippet
 
 context "math()"
-snippet tet "text in math mode" iA
+snippet txt "text in math mode" iA
 \text{$1}$0
 endsnippet
 
@@ -191,7 +205,7 @@ snippet mul "multiplication" iA
 endsnippet
 
 context "math()"
-snippet fun "function" iA
+snippet fn "function" iA
 ($1)$0
 endsnippet
 
@@ -201,6 +215,10 @@ snippet fset "false set" iA
 endsnippet
 
 context "math()"
-snippet set "true set" iA
+snippet tset "true set" iA
 \set{$1}$0
+endsnippet
+
+snippet tu "underline" iA
+\underline{$1}$0
 endsnippet
