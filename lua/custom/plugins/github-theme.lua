@@ -10,7 +10,21 @@ return {
       }
 
       vim.cmd 'colorscheme github_dark_high_contrast'
+
+      vim.cmd [[
+  highlight Normal guibg=NONE ctermbg=NONE
+  highlight NormalNC guibg=NONE ctermbg=NONE
+  highlight SignColumn guibg=NONE
+  highlight VertSplit guibg=NONE
+  highlight EndOfBuffer guibg=NONE
+]]
+      vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+      vim.api.nvim_set_hl(0, 'FloatBorder', { bg = 'none' })
     end,
+    opts = {
+      sidebars = 'transparent',
+      floats = 'transparent',
+    },
   },
 }
 
