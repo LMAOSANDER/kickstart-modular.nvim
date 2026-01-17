@@ -1,0 +1,30 @@
+global !p
+def math():
+    return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+endglobal
+
+context "math()"
+snippet Prob "user defined latex command" iA
+\Prob{$1}$0
+endsnippet
+
+context "math()"
+snippet prob "user defined latex command" iA
+\prob{$1}$0
+endsnippet
+
+context "math()"
+snippet var "user defined latex command" wA
+\var{$1}$0
+endsnippet
+
+context "math()"
+snippet E "user defined latex command" wA
+\E{$1}$0
+endsnippet
+
+context "math()"
+snippet cov "user defined latex command" wA
+\cov{$1}$0
+endsnippet
+

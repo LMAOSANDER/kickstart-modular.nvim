@@ -1,0 +1,199 @@
+global !p
+def math():
+    return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+endglobal
+
+
+# Alfanumeric symbols
+context "math()"
+snippet aa "alpha" wA
+\alpha
+endsnippet
+
+context "math()"
+snippet xi "xi" wA
+\xi
+endsnippet
+
+
+context "math()"
+snippet bb "beta" wA
+\beta
+endsnippet
+
+context "math()"
+snippet gg "gamma" wA
+\gamma
+endsnippet
+
+context "math()"
+snippet ee "epsilon" wA
+\epsilon
+endsnippet
+
+context "math()"
+snippet ss "sigma" wA
+\sigma
+endsnippet
+
+context "math()"
+snippet tt "theta" wA
+\theta
+endsnippet
+
+context "math()"
+snippet ww "omega" wA
+\omega
+endsnippet
+
+context "math()"
+snippet Phi "big phi" wA
+\Phi
+endsnippet
+
+context "math()"
+snippet phi "varphi" wA
+\varphi
+endsnippet
+
+context "math()"
+snippet delta "big delta" wA
+\Delta
+endsnippet
+
+priority 10
+context "math()"
+snippet mm "mu" wA
+\mu
+endsnippet
+
+priority 10
+context "math()"
+snippet nu "nu" wA
+\nu 
+endsnippet
+
+context "math()"
+snippet ll "lambda" wA
+\lambda
+endsnippet
+
+# Special Alfanumeric symbols
+context "math()"
+snippet ell "ell" wA
+\ell
+endsnippet
+
+# Mathematical symbols
+
+# Relational symbols
+context "math()"
+snippet => "implies" wA
+\implies
+endsnippet
+
+context "math()"
+snippet <= "implied by" wA
+\impliedby
+endsnippet
+
+priority 100
+context "math()"
+snippet iff "\iff command A" wA
+\iff
+endsnippet
+
+context "math()"
+snippet leq "\leq command" wA
+\leq
+endsnippet
+
+context "math()"
+snippet geq "\geq command" wA
+\geq
+endsnippet
+
+context "math()
+snippet sim "similar" wA
+\sim
+endsnippet
+
+
+
+# Set symbols
+priority 100
+context "math()"
+snippet inn "in" wA
+\in
+endsnippet
+
+context "math()"
+snippet sus "subset" wA
+\subset
+endsnippet
+
+context "math()"
+snippet seq "subsetequal" wA
+\subseteq
+endsnippet
+
+priority 10
+context "math()"
+snippet uu "union" wA
+\cup
+endsnippet
+
+priority 100
+context "math()"
+snippet buu "big union" wA
+\bigcup
+endsnippet
+
+priority 10
+context "math()"
+snippet nn "intersection" wA
+\cap
+endsnippet
+
+priority 100
+context "math()"
+snippet bnn "big intersection" wA
+\bigcap
+endsnippet
+
+context "math()"
+snippet fal "for all" wA
+\forall
+endsnippet
+
+context "math()"
+snippet | "|" wA
+\mid
+endsnippet
+
+# Set symbols/mappings
+context "math()"
+snippet !> "maptsto" wA
+\mapsto
+endsnippet
+
+# Other
+context "math()"
+snippet -> "to" wA
+\to
+endsnippet
+
+context "math()"
+snippet oo "\infty command" wA
+\infty
+endsnippet
+
+context "math()"
+snippet exp "eulers number" wA
+\e^{$1}$0
+endsnippet
+
+context "math()"
+snippet pi "pi" wA
+\pic
+endsnippet

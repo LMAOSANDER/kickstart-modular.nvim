@@ -10,6 +10,13 @@ return {
       vim.g.vimtex_complete_enabled = 1
       vim.g.vimtex_complete_close_braces = 1
       vim.g.vimtex_conceal_level = 1
+      vim.g.vimtex_syntax_custom_cmds_with_concealed_delims = {
+        --{ name = 'prob', mathmode = 1, cchar_open = 'π(', cchar_close = ')' },
+        { name = 'e', mathmode = 1, cchar_open = 'e', cchar_close = '' },
+      }
+      vim.g.vimtex_compiler_latexmk = {
+        aux_dir = 'latex_aux',
+      }
     end,
   },
 }

@@ -8,6 +8,8 @@
 --  To update plugins you can run
 --    :Lazy update
 --
+local cp = 'custom.plugins'
+
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
@@ -62,7 +64,24 @@ require('lazy').setup({
   --    This is the easiest way to modularize your config.
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  { import = 'custom.plugins' },
+  --{ import = 'custom.plugins' },
+  require 'custom.plugins.init',
+  require 'custom.plugins.blink-compat',
+  require 'custom.plugins.github-theme',
+  -- snippets
+  require 'custom.plugins.ultisnips',
+  -- latex
+  require 'custom.plugins.air-latex',
+  -- Obsidian
+  require 'custom.plugins.obsidian-nvim',
+  require 'custom.plugins.obsidian-bridge',
+  -- markdown
+  --require 'custom.plugins.render-markdown',
+  --require 'custom.plugins.markview',
+  -- vimtex
+  require 'custom.plugins.vimtex-cmp',
+  require 'custom.plugins.vimtex',
+
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!

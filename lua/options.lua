@@ -79,4 +79,5 @@ vim.o.softtabstop = 4 -- How many spaces a <Tab> counts for while editing
 
 vim.o.conceallevel = 2
 
+vim.opt.shell = 'pwsh'
 -- vim: ts=2 sts=2 sw=2 et

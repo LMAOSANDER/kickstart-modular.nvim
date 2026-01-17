@@ -1,0 +1,274 @@
+global !p
+def math():
+    return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+endglobal
+
+# hat/bar/vector commands
+priority 10
+context "math()"
+snippet bar "bar" iA
+\overline{$1}$0
+endsnippet
+
+priority 100
+context "math()"
+snippet "([a-zA-Z])bar" "bar" riA
+\overline{`!p snip.rv=match.group(1)`}
+endsnippet
+
+priority 300
+context "math()"
+snippet "([a-zA-Z]+(?:[_^](?:\{[^}]+\}|.))+?)bar" "bar (with scripts)" riA
+\overline{`!p snip.rv=match.group(1)`}
+endsnippet
+
+context "math()"
+snippet seq "sequence notation" iA
+($1_{$2})_{$3}$0
+endsnippet
+
+context "math()"
+snippet binom "binomial coefficient" iA
+\binom{$1}{$2}$0
+endsnippet
+
+
+priority 10
+context "math()"
+snippet "hat" "hat" iA
+\hat{$1}$0
+endsnippet
+
+priority 100
+context "math()"
+snippet "([a-zA-Z])hat" "hat" riA
+\hat{`!p snip.rv=match.group(1)`}
+endsnippet
+
+priority 200
+context "math()"
+snippet "(\\[a-zA-Z]+)hat" "hat (command=(\) multi-letter)" riA
+\hat{`!p snip.rv=match.group(1)`}
+endsnippet
+
+priority 300
+context "math()"
+snippet "(\\[a-zA-Z]+(?:[_^](?:\{[^}]+\}|.))+?)hat" "hat (command=(\) multi-letter with scripts)" riA
+\widehat{`!p snip.rv=match.group(1)`}
+endsnippet
+
+priority 100
+context "math()"
+snippet "(\\?\w+)(,\.|\.,)" "Vector postfix" riA
+\vec{`!p snip.rv=match.group(1)`}
+endsnippet
+
+
+# Subscript snippets
+context "math()"
+snippet sub "subscript" iA
+_{$1}$0
+endsnippet
+
+context "math()"
+snippet '([A-Za-z])(\d)' "auto subscript" wrA
+`!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
+endsnippet
+
+context "math()"
+snippet '([A-Za-z])_(\d\d)' "auto subscript2" wrA
+`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
+endsnippet
+
+# Superscript snippets
+context "math()"
+snippet to "superscript" iA
+^{$1}$0
+endsnippet
+
+context "math()"
+snippet sr "squared" iA
+^{2}
+endsnippet
+
+context "math()"
+snippet kb "cubed" iA
+^{3}
+endsnippet
+
+context "math()"
+snippet cmp "complement" iA
+^{c}
+endsnippet
+
+
+
+# Operators
+priority 100
+context "math()"
+snippet mul "multiplication" iA
+\cdot
+endsnippet
+
+context "math()"
+snippet abs "localy defined abs command" iA
+\abs{$1}$0
+endsnippet
+
+context "math()"
+snippet int "integral" wA
+\int_{$1}^{$2} $0
+endsnippet
+
+#priority 100
+#context "math()"
+#snippet "sum([a-zA-Z])([^\d\s]*)([0-9 ]*)(.*)" "sum" r
+#\sum_{`!p snip.rv=match.group(1)``!p snip.rv=match.group(2)``!p snip.rv=match.group(3)`}^{`!p snip.rv=match.group(4)`}$0
+#endsnippet
+
+priority 10
+context "math()"
+snippet sum "sum" wA
+\sum_{$1}^{$2} $0
+endsnippet
+
+context "math()"
+snippet prod "product" wA
+\prod_{$1}^{$2} $0
+endsnippet
+
+context "math()"
+snippet lim "limit" wA
+\lim_{$1}$0
+endsnippet
+
+
+# Fraction
+context "math()"
+snippet // "fraction" iA
+\frac{$1}{$2}$0
+endsnippet
+
+context "math()"
+snippet '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/' "Fraction" wrA
+\\frac{`!p snip.rv = match.group(1)`}{$1}$0
+endsnippet
+
+context "math()"
+priority 1000
+snippet '^.*\)/' "() Fraction" wrA
+`!p
+stripped = match.string[:-1]
+depth = 0
+i = len(stripped) - 1
+while True:
+	if stripped[i] == ')': depth += 1
+	if stripped[i] == '(': depth -= 1
+	if depth == 0: break;
+	i -= 1
+snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
+`{$1}$0
+endsnippet
+
+
+# Roots
+context "math()"
+snippet sqrt "square root" wA
+\sqrt{$1}$0
+endsnippet
+
+context "math()"
+snippet root "root of degree ..." wA
+\sqrt[$1]{$2}$0
+endsnippet
+
+# Derivatives (using the derivative package)
+context "math()"
+snippet odv "ordinary derivative" wA
+\odv{$1}{$2}$0
+endsnippet
+
+context "math()"
+snippet ndv "ordinary derivative" wA
+\odv[$1]{$2}{$3}$0
+endsnippet
+
+context "math()"
+snippet pdv "partial derivative" wA
+\pdv{$1}{$2}$0
+endsnippet
+
+context "math()"
+snippet npd "partial n:th derivative" wA
+\pdv[$1]{$2}{$3}$0
+endsnippet
+
+# differentials
+context "math()"
+snippet odif "odinary differential" wA
+\odif{$1}$0
+endsnippet
+
+context "math()"
+snippet pdif "partial differential" wA
+\pdif{$1}$0
+endsnippet
+
+
+# Delimiters
+context "math()"
+snippet pn "paranthesis" iA
+($1)$0
+endsnippet
+
+context "math()"
+snippet left "left" wA
+\left
+endsnippet
+
+context "math()"
+snippet right "right" wA
+\right
+endsnippet
+
+context "math()"
+snippet lr( "adaptive left/right paranthesis scaling" iA
+\left($1\right)$0
+endsnippet
+
+context "math()"
+snippet lr[ "adaptive left/right bracket scaling" iA
+\left[$1\right]$0
+endsnippet
+
+context "math()"
+snippet lr{ "adaptive left/right delimiter scaling" iA
+\left\\{$1\right\\}$0
+endsnippet
+
+priority 200
+context "math()"
+snippet ... "\dots command" iA
+\dots
+endsnippet
+
+context "math()"
+snippet fset "false set" wA
+\\{$1\\}$0
+endsnippet
+
+# Localy defined
+context "math()"
+snippet set "true set" wA
+\set{$1}$0
+endsnippet
+
+# Other
+context "math()"
+snippet "([A-Z])\1\b" "math bold character" rA
+\mathb{`!p snip.rv=match.group(1)`}$0
+endsnippet
+
+snippet bmat "bmat" iA
+\begin{bmatrix} $1 \end{bmatrix} $0
+endsnippet

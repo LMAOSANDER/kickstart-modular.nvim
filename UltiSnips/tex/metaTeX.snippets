@@ -1,0 +1,45 @@
+global !p
+def math():
+    return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+
+def enumerate():
+    return vim.eval('vimtex#syntax#in("tex#Enumerate")') == '1'
+endglobal
+
+
+snippet beg "begin{} / end{}" bA
+\begin{$1}
+    $0
+\end{$1}
+endsnippet
+
+context "math()"
+snippet txt "text in math mode" wA
+\text{$1}$0
+endsnippet
+
+snippet underline "underline" wA
+\underline{$1}$0
+endsnippet
+
+snippet overset "overset" wA
+\overset{$1}{$2}$0
+endsnippet
+
+context "math()"
+snippet : "colon" wA
+\colon
+endsnippet
+
+snippet enquote "quotes" A
+\enquote{$1}$0
+endsnippet
+
+snippet " "fast quotes" A
+\enquote{$1}$0
+endsnippet
+
+context "enumerate()"
+snippet item "item" A
+\item
+endsnippet

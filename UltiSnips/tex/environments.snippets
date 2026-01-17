@@ -1,0 +1,18 @@
+global !p
+def notmath():
+    return vim.eval('vimtex#syntax#in_mathzone()') == '0'
+endglobal
+
+
+context "notmath()"
+snippet mm "inline math" wA
+\($1\)$0
+endsnippet
+
+context "notmath()"
+snippet dm "display math" wA
+\[
+    $1
+\]$0
+endsnippet
+

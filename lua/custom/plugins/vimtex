@@ -1,0 +1,117 @@
+return {
+  {
+    'lervag/vimtex',
+    lazy = false,
+
+    init = function()
+      -- ─────────────────────────────────────────────
+      -- vimtex config
+      -- ─────────────────────────────────────────────
+      vim.g.vimtex_view_method = 'general'
+      vim.g.vimtex_compiler_method = 'latexmk'
+      vim.g.vimtex_complete_enabled = 1
+      vim.g.vimtex_complete_close_braces = 1
+      vim.g.vimtex_conceal_level = 1
+
+      -- Your custom commands (these definitions stay as-is)
+      vim.g.vimtex_syntax_custom_cmds_with_concealed_delims = {
+        --{ name = "prob", mathmode = 1, cchar_open = "π(", cchar_close = ")" },
+        { name = 'e', mathmode = 1, cchar_open = 'e', cchar_close = '' },
+      }
+    end,
+
+    config = function()
+      ----------------------------------------------------------------------
+      -- MULTI-CHARACTER CONCEAL FOR VIMTEX (NEOVIM ONLY)
+      ----------------------------------------------------------------------
+      if vim.fn.has 'nvim' == 0 then
+        return
+      end
+
+      local api = vim.api
+      local ns = api.nvim_create_namespace 'vimtex_multichar_conceal'
+
+      ----------------------------------------------------------------------
+      -- 1. Read custom command definitions from VimTeX
+      ----------------------------------------------------------------------
+      local function get_cmds()
+        local cmds = vim.g.vimtex_syntax_custom_cmds_with_concealed_delims
+        if type(cmds) ~= 'table' then
+          return {}
+        end
+        return cmds
+      end
+
+      ----------------------------------------------------------------------
+      -- 2. Parse arguments like {x}{y}
+      ----------------------------------------------------------------------
+      local function parse_args(argstr)
+        local args = {}
+        for a in string.gmatch(argstr, '{(.-)}') do
+          table.insert(args, a)
+        end
+        return args
+      end
+
+      ----------------------------------------------------------------------
+      -- 3. Build the replacement text (e.g., "π(" .. x .. ")")
+      ----------------------------------------------------------------------
+      local function build_replacement(cmd, args)
+        local open = cmd.cchar_open or ''
+        local mid = cmd.cchar_mid or ''
+        local close = cmd.cchar_close or ''
+
+        if #args == 0 then
+          return open .. close
+        elseif #args == 1 then
+          return open .. args[1] .. close
+        else
+          return open .. table.concat(args, mid) .. close
+        end
+      end
+
+      ----------------------------------------------------------------------
+      -- 4. Replace matches on a line with virtual text overlays
+      ----------------------------------------------------------------------
+      local function conceal_line(buf, lnum, line, cmds)
+        for _, cmd in ipairs(cmds) do
+          -- pattern like \prob{...}
+          local pattern = '\\' .. cmd.name .. '(.*)'
+          local s, e, argstr = string.find(line, pattern)
+          if s then
+            local args = parse_args(argstr)
+            local repl = build_replacement(cmd, args)
+
+            api.nvim_buf_set_extmark(buf, ns, lnum, e, {
+              virt_text = { { repl, 'Conceal' } },
+              virt_text_pos = 'overlay',
+            })
+          end
+        end
+      end
+
+      ----------------------------------------------------------------------
+      -- 5. Apply conceal to entire buffer
+      ----------------------------------------------------------------------
+      local function apply_conceal(buf)
+        api.nvim_buf_clear_namespace(buf, ns, 0, -1)
+        local cmds = get_cmds()
+
+        local lines = api.nvim_buf_get_lines(buf, 0, -1, false)
+        for i, line in ipairs(lines) do
+          conceal_line(buf, i - 1, line, cmds)
+        end
+      end
+
+      ----------------------------------------------------------------------
+      -- 6. Autocmds to update conceal automatically
+      ----------------------------------------------------------------------
+      api.nvim_create_autocmd({ 'BufEnter', 'TextChanged', 'TextChangedI' }, {
+        pattern = '*.tex',
+        callback = function(ev)
+          apply_conceal(ev.buf)
+        end,
+      })
+    end,
+  },
+}
