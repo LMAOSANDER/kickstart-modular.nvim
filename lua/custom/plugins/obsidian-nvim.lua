@@ -1,6 +1,11 @@
 local home = vim.fn.expand '~'
 local vault = vim.fs.joinpath(home, 'Documents', 'vaults')
-local note_id_func = function(title)
+
+local ZettleToString = function(zs)
+  return zs:gsub('^%d+%-', '')
+end
+
+local stringToZettel = function(title)
   -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
   -- In this case a note with the title 'My new note' will be given an ID that looks
   -- like '1657296016-my-new-note', and therefore the file name '1657296016-my-new-note.md'
@@ -20,21 +25,48 @@ end
 return {
   'obsidian-nvim/obsidian.nvim',
   version = '*',
-  event = {
-    'BufReadPre ' .. vault .. '/*.md',
-    'BufNewFile ' .. vault .. '/*.md',
-  },
+  ft = 'markdown',
+  -- event = {
+  --   'BufReadPre ' .. vault .. '/*.md',
+  --   'BufNewFile ' .. vault .. '/*.md',
+  -- },
+  --- @module 'obsidian'
+  --- @type obsidian.config
   opts = {
+    preferred_link_style = 'markdown',
+    new_notes_location = 'notes_subdir',
+    notes_subdir = 'notes',
+    daily_notes = { folder = 'dailies' },
+    legacy_commands = false,
+    frontmatter = {
+      enabled = true,
+      func = function(note)
+        if note.title then
+          note:add_alias(note.title)
+        end
+
+        local out = {
+          id = note.id,
+          title = note.title or ZettleToString(note.id),
+          aliases = note.aliases,
+          tags = note.tags,
+        }
+
+        if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
+          for k, v in pairs(note.metadata) do
+            out[k] = v
+          end
+        end
+
+        return out
+      end,
+      sort = { 'id', 'title', 'aliases', 'tags' },
+    },
     workspaces = {
       { name = 'personal', path = vault .. '/personal' },
       { name = 'work', path = vault .. '/work' },
       { name = 'education', path = vault .. '/education' },
     },
-    note_id_func = note_id_func,
-    --    note_path_func = function(spec)
-    --      -- This is equivalent to the default behavior. (is it though?)
-    --      local path = spec.dir / tostring(spec.title)
-    --      return path:with_suffix '.md'
-    --    end,
+    note_id_func = stringToZettel,
   },
 }
