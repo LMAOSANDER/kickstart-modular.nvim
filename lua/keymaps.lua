@@ -51,16 +51,4 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- personal
-vim.g.UltiSnipsExpandTrigger = '<tab>'
-vim.g.UltiSnipsJumpForwardTrigger = '<tab>'
-vim.g.UltiSnipsJumpBackwardTrigger = '<s-tab>'
-
-vim.keymap.set('i', '<C-l>', '<C-g>u<Esc>[s1z=]a<C-g>u', { desc = 'Fix previous spelling error' })
-
-vim.keymap.set('n', '<leader>oo', ':Obsidian<CR>')
-vim.keymap.set('n', '<leader>on', ':Obsidian new<CR>')
-vim.keymap.set('n', '<leader>os', ':Obsidian search<CR>')
-vim.keymap.set('v', '<leader>oe', ':Obsidian extract_note ')
-
 -- vim: ts=2 sts=2 sw=2 et

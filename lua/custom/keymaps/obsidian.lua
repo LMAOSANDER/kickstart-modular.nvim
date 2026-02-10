@@ -1,0 +1,5 @@
+vim.keymap.set('n', '<leader>oo', ':Obsidian<CR>')
+vim.keymap.set('n', '<leader>on', ':Obsidian new<CR>')
+vim.keymap.set('n', '<leader>os', ':Obsidian search<CR>')
+vim.keymap.set('v', '<leader>oe', ':Obsidian extract_note ')
+vim.keymap.set('n', '<leader>ob', ':Obsidian backlinks<CR>')
