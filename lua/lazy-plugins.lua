@@ -70,14 +70,9 @@ require('lazy').setup({
   require 'custom.plugins.github-theme',
   -- snippets
   require 'custom.plugins.ultisnips',
-  -- latex
-  require 'custom.plugins.air-latex',
   -- Obsidian
   require 'custom.plugins.obsidian-nvim',
   require 'custom.plugins.obsidian-bridge',
-  -- markdown
-  --require 'custom.plugins.render-markdown',
-  --require 'custom.plugins.markview',
   -- vimtex
   require 'custom.plugins.vimtex-cmp',
   require 'custom.plugins.vimtex',
