@@ -71,8 +71,8 @@ require('lazy').setup({
   -- snippets
   require 'custom.plugins.ultisnips',
   -- Obsidian
-  require 'custom.plugins.obsidian-nvim',
-  require 'custom.plugins.obsidian-bridge',
+  -- require 'custom.plugins.obsidian-nvim',
+  -- require 'custom.plugins.obsidian-bridge',
   -- vimtex
   require 'custom.plugins.vimtex-cmp',
   require 'custom.plugins.vimtex',
